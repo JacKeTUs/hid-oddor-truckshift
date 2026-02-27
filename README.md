@@ -13,12 +13,12 @@ make install
 DKMS will install module into system, and will update it every time you update your kernel. Module will persist after reboots. It's the preferrable way to install it on the most distros.
 
 1. Install `dkms` package from your distro package manager
-2. Clone repository to `/usr/src/oddor-truckshift`
+2. Clone repository to `/usr/src/hid-oddor-truckshift`
 3. Install the module:
-`sudo dkms install /usr/src/oddor-truckshift`
+`sudo dkms install /usr/src/hid-oddor-truckshift`
 4. Update initramfs:
 `sudo update-initramfs -u`
 5. Reboot
 
 To remove module:
-`sudo dkms remove oddor-truckshift/<version> --all`
+`sudo dkms remove hid-oddor-truckshift/<version> --all`
