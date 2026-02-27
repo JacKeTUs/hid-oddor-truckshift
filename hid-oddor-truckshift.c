@@ -92,6 +92,22 @@ static const __u8 *truckshift_report_fixup(struct hid_device *hid, __u8 *rdesc, 
     return rdesc;
 }
 
+static int truckshift_probe(struct hid_device *hdev, const struct hid_device_id *id)
+{
+    int ret;
+    hid_info(hdev, "ODDOR Truckshift probing...\n");
+    // Copy from hid-generic
+	hdev->quirks |= HID_QUIRK_INPUT_PER_APP;
+    ret = hid_parse(hdev);
+	if (ret) {
+        hid_err(hdev, "Probing failed: %d\n", ret);
+        return ret;
+    }
+    ret = hid_hw_start(hdev, HID_CONNECT_DEFAULT);
+    hid_info(hdev, "hid_hw_start: %d\n", ret);
+	return ret;
+}
+
 static const struct hid_device_id truckshift_devices[] = {
     { HID_USB_DEVICE(0x1020, 0x8863) },
     { }
@@ -102,6 +118,7 @@ MODULE_DEVICE_TABLE(hid, truckshift_devices);
 static struct hid_driver truckshift_driver = {
     .name = "hid-oddor-truckshift",
     .id_table = truckshift_devices,
+    .probe = truckshift_probe,
     .report_fixup = truckshift_report_fixup
 };
 module_hid_driver(truckshift_driver);
