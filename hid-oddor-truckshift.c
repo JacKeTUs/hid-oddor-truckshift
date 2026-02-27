@@ -54,7 +54,24 @@ Original descriptor
 */
 
 static const __u8 oddor_truckshift_rdesc[] = {
-    
+    0x05, 0x01,        // Usage Page (Generic Desktop Ctrls)
+    0x09, 0x04,        // Usage (Joystick)
+    0xA1, 0x01,        // Collection (Application)
+    0x05, 0x09,        //   Usage Page (Button)
+    0x19, 0x01,        //   Usage Minimum (0x01)
+    0x29, 0x03,        //   Usage Maximum (0x03)
+    0x15, 0x00,        //   Logical Minimum (0)
+    0x25, 0x01,        //   Logical Maximum (1)
+    0x75, 0x01,        //   Report Size (1)
+    0x95, 0x03,        //   Report Count (3)
+    0x81, 0x02,        //   Input (Data,Var,Abs,No Wrap,Linear,Preferred State,No Null Position),
+    0x75, 0x05,        //   Report Size (5)
+    0x95, 0x01,        //   Report Count (1)
+    0x81, 0x01,        //   Input (Const)
+    0x75, 0x10,        //   Report Size (16)
+    0x95, 0x02,        //   Report Count (2)
+    0x81, 0x01,        //   Input (Const)
+    0xC0,              // End Collection
 };
 
 
@@ -64,8 +81,8 @@ static const __u8 *truckshift_report_fixup(struct hid_device *hid, __u8 *rdesc, 
         hid_info(hid,
              "fixing up ODDOR truckshift descriptor\n");
 
-        //*rsize = sizeof(oddor_truckshift_rdesc);
-        //return oddor_truckshift_rdesc;
+        *rsize = sizeof(oddor_truckshift_rdesc);
+        return oddor_truckshift_rdesc;
     } else {
         hid_info(hid,
              "Descriptor size is %d, rdesc[3] is %d, "
